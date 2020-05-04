@@ -15,7 +15,8 @@ namespace Forum.Controllers
         // GET
         public ActionResult Index()
         {
-            return View();
+            var posts = _unitOfWork.Posts.GetAll();
+            return View(posts);
         }
     }
 }

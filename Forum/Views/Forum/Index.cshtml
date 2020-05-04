@@ -1,19 +1,24 @@
-﻿@{
+﻿@using Forum.Core.Helpers
+@model IEnumerable<Forum.Core.Domain.Post>
+
+@{
     ViewBag.Title = "Posts";
 }
 <h1>Posts</h1>
 
-<div class="table-responsive">
-    <table class="table table-borderless table-hover">
+<table class="table table-borderless table-hover">
+    @foreach (var post in Model)
+    {
         <tr class="col-lg-8">
             <td>
-                <h2>Post title Here</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias asperiores aspernatur eaque eos impedit incidunt ipsam itaque laborum magni nam porro, qui quod sequi.....</p>
+                <h2>@post.Title</h2>
+                <p>@StringUtility.SummarizeText(post.Text)</p>
 
-                <div class="text-right">
-                    <a href="#" class="btn btn-success">Read More</a>
+                <div style="display: flex;justify-content: space-between;align-items: center">
+                    @post.DateCreated.ToString("f")
+                    <a href="#" class="btn btn-success">Continue Reading</a>
                 </div>
             </td>
         </tr>
-    </table>
-</div>
+    }
+</table>

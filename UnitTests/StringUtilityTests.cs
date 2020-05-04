@@ -1,36 +1,35 @@
-﻿using Forum.Core.Helpers;
+﻿using System.Linq;
+using Forum.Core.Helpers;
 using NUnit.Framework;
-    
+
 namespace UnitTests
 {
     [TestFixture]
     public class StringExtensionsTests
     {
-        private readonly string text = "This is gonna be a really really really really long text";
+        private readonly string _text = "This is gonna be a really really really really long text";
 
         [Test]
-        [TestCase(15)]
+        [TestCase(1)]
         [TestCase(5)]
-        public void SummarizeText_MaxLengthGreaterThanZeroAndLessThanTextLength_ReturnSummaryOfSpecifiedLength(
-            int maxLength)
+        [TestCase(10)]
+        public void SummarizeText_WordCountInRange_ReturnSummarizedText(int wordCount)
         {
-            var result = StringUtility.SummarizeText(text, maxLength);
+            var result = StringUtility.SummarizeText(_text, wordCount).Split();
 
-            Assert.That(result.Length, Is.GreaterThanOrEqualTo(maxLength));
-            Assert.That(result, Does.EndWith(StringUtility.SummaryEnd));
+            Assert.That(result.Length, Is.EqualTo(wordCount));
+            Assert.That(result.Last(), Does.EndWith("..."));
         }
 
         [Test]
-        [TestCase(0)]
         [TestCase(-1)]
-        [TestCase(1000)]
-        public void SummarizeText_MaxLengthZeroNegativeOrGreaterThanTextLength_ReturnSummaryOfDefaultLength(
-            int maxLength)
+        [TestCase(0)]
+        public void SummarizeText_WordCountIsOutOfRange_ReturnWholeText(int wordCount)
         {
-            var result = StringUtility.SummarizeText(text, maxLength);
-                                
-            Assert.That(result.Length, Is.GreaterThanOrEqualTo(StringUtility.DefaultSummaryLength));
-            Assert.That(result, Does.EndWith(StringUtility.SummaryEnd));
+            var result = StringUtility.SummarizeText(_text, wordCount).Split();
+            var expectedLength = _text.Split().Length;
+
+            Assert.That(result.Length, Is.EqualTo(expectedLength));
         }
     }
 }
