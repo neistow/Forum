@@ -200,11 +200,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Core\Domain\Post.cs" />
     <Compile Include="Core\Domain\Reply.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IPostRepository.cs" />
+    <Compile Include="Core\Repositories\IReplyRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="DependencyResolution\NinjectDependencyResolver.cs" />
     <Compile Include="Global.asax.cs">
@@ -237,6 +240,8 @@
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\EntityConfigurations\PostConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReplyConfiguration.cs" />
+    <Compile Include="Persistence\Repositories\PostRepository.cs" />
+    <Compile Include="Persistence\Repositories\ReplyRepository.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -369,6 +374,7 @@
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

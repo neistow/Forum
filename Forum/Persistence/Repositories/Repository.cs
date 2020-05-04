@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
 using Antlr.Runtime.Misc;
 using Forum.Core.Repositories;
 
 namespace Forum.Persistence.Repositories
 {
-    public class Repository <TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext Context;
+        protected DbContext Context;
 
         public Repository(DbContext context)
         {
@@ -17,42 +18,42 @@ namespace Forum.Persistence.Repositories
 
         public TEntity Get(int id)
         {
-            throw new System.NotImplementedException();
+            return Context.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            throw new System.NotImplementedException();
+            return Context.Set<TEntity>().ToList();
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> Find(Expression<System.Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return Context.Set<TEntity>().Where(predicate);
         }
 
-        public TEntity SingleOrDefault(Expression<Func<TEntity, bool>> predicate)
+        public TEntity SingleOrDefault(Expression<System.Func<TEntity, bool>> predicate)
         {
-            throw new System.NotImplementedException();
+            return Context.Set<TEntity>().SingleOrDefault(predicate);
         }
 
         public void Add(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            Context.Set<TEntity>().Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
         {
-            throw new System.NotImplementedException();
+            Context.Set<TEntity>().AddRange(entities);
         }
 
         public void Remove(TEntity entity)
         {
-            throw new System.NotImplementedException();
+            Context.Set<TEntity>().Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            throw new System.NotImplementedException();
+            Context.Set<TEntity>().RemoveRange(entities);
         }
     }
 }

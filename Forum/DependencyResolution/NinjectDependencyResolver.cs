@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Forum.Core;
+using Forum.Core.Repositories;
+using Forum.Persistence;
+using Forum.Persistence.Repositories;
 using Ninject;
+using Ninject.Web.Common;
 
 namespace Forum.DependencyResolution
 {
@@ -9,9 +14,9 @@ namespace Forum.DependencyResolution
     {
         private IKernel _kernel;
 
-        public NinjectDependencyResolver(IKernel kernel)
+        public NinjectDependencyResolver(IKernel kernelParam)
         {
-            _kernel = kernel;
+            _kernel = kernelParam;
             AddBindings();
         }
 
@@ -27,7 +32,9 @@ namespace Forum.DependencyResolution
 
         private void AddBindings()
         {
-            //
+            _kernel.Bind<IPostRepository>().To<PostRepository>().InRequestScope();
+            _kernel.Bind<IReplyRepository>().To<ReplyRepository>().InRequestScope();
+            _kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
         }
     }
 }

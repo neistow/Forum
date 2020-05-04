@@ -1,7 +1,12 @@
-﻿namespace Forum.Core
+﻿using System;
+using Forum.Core.Repositories;
+
+namespace Forum.Core
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        
+        IPostRepository Posts { get; }
+        IReplyRepository Replies { get; }
+        int Complete();
     }
 }
