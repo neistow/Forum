@@ -8,11 +8,11 @@ namespace Forum.Persistence.Repositories
 {
     public class Repository <TEntity> : IRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext _context;
+        protected readonly DbContext Context;
 
         public Repository(DbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public TEntity Get(int id)

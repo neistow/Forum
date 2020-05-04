@@ -23,7 +23,7 @@ namespace Forum
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-default3.css",
                       "~/Content/site.css"));
         }
     }
