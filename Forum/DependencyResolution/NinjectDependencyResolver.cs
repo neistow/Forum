@@ -19,7 +19,7 @@ namespace Forum.DependencyResolution
             _kernel = kernelParam;
             AddBindings();
         }
-
+        
         public object GetService(Type serviceType)
         {
             return _kernel.TryGet(serviceType);
