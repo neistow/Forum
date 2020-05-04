@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Forum.Core;
+using PagedList;    
 
 namespace Forum.Controllers
 {
@@ -12,11 +13,18 @@ namespace Forum.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET
-        public ActionResult Index()
+        [Route("Forum/Posts/page{page=1}")]
+        public ActionResult Posts(int page)
         {
             var posts = _unitOfWork.Posts.GetAll();
-            return View(posts);
+            return View(posts.ToPagedList(page,5));
+        }
+        
+        [Route("Forum/Post/id{id=1}")]
+        public ActionResult Post(int id)
+        {
+            var post = _unitOfWork.Posts.GetPostWithReplies(id);
+            return View(post);
         }
     }
 }

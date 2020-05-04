@@ -1,8 +1,9 @@
 ﻿@using Forum.Core.Helpers
-@model IEnumerable<Forum.Core.Domain.Post>
+@using PagedList.Mvc
+@model PagedList.IPagedList<Forum.Core.Domain.Post>
 
 @{
-    ViewBag.Title = "Posts";
+    ViewBag.Title = "All Posts";
 }
 <h1>Posts</h1>
 
@@ -16,9 +17,11 @@
 
                 <div style="display: flex;justify-content: space-between;align-items: center">
                     @post.DateCreated.ToString("f")
-                    <a href="#" class="btn btn-success">Continue Reading</a>
+                    @* <a href="#" class="btn btn-success">Continue Reading</a> *@
+                    @Html.ActionLink("Continue Reading", "Post", "Forum", new {id = post.Id}, new {@class = "btn btn-success"})
                 </div>
             </td>
         </tr>
     }
 </table>
+@Html.PagedListPager(Model, page => Url.Action("Posts", new {page}))

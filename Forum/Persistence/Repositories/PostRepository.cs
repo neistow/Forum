@@ -17,6 +17,11 @@ namespace Forum.Persistence.Repositories
             return ApplicationDbContext.Posts.Include(p => p.Replies).ToList();
         }
 
+        public Post GetPostWithReplies(int id)
+        {
+            return ApplicationDbContext.Posts.Include(p => p.Replies).SingleOrDefault(p => p.Id == id);
+        }
+
         private ApplicationDbContext ApplicationDbContext => Context as ApplicationDbContext;
     }
 }
