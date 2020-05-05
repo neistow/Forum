@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Forum.Core.Domain;
 
 namespace Forum.Core.Repositories
