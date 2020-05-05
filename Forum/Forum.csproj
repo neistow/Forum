@@ -230,14 +230,15 @@
     <Compile Include="Migrations\202005041127259_AddAuthorToReply.Designer.cs">
       <DependentUpon>202005041127259_AddAuthorToReply.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005041129190_AddRepliesToPost.cs" />
-    <Compile Include="Migrations\202005041129190_AddRepliesToPost.Designer.cs">
-      <DependentUpon>202005041129190_AddRepliesToPost.cs</DependentUpon>
+    <Compile Include="Migrations\202005051549029_AddRepliesToPost.cs" />
+    <Compile Include="Migrations\202005051549029_AddRepliesToPost.Designer.cs">
+      <DependentUpon>202005051549029_AddRepliesToPost.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Persistence\ApplicationDbContext.cs" />
     <Compile Include="Persistence\EntityConfigurations\PostConfiguration.cs" />
     <Compile Include="Persistence\EntityConfigurations\ReplyConfiguration.cs" />
@@ -433,8 +434,8 @@
     <EmbeddedResource Include="Migrations\202005041127259_AddAuthorToReply.resx">
       <DependentUpon>202005041127259_AddAuthorToReply.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005041129190_AddRepliesToPost.resx">
-      <DependentUpon>202005041129190_AddRepliesToPost.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005051549029_AddRepliesToPost.resx">
+      <DependentUpon>202005051549029_AddRepliesToPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

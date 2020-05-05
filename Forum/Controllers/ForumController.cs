@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Forum.Core;
+using Forum.Models;
 using PagedList;    
 
 namespace Forum.Controllers
@@ -23,8 +24,12 @@ namespace Forum.Controllers
         [Route("Forum/Post/id{id=1}")]
         public ActionResult Post(int id)
         {
-            var post = _unitOfWork.Posts.GetPostWithAuthor(id);
-            return View(post);
+            var viewModel = new PostViewModel
+            {
+                Post = _unitOfWork.Posts.GetPostWithAuthor(id),
+                Replies = _unitOfWork.Replies.GetAllRepliesToPost(id)
+            };
+            return View(viewModel);
         }
     }
 }

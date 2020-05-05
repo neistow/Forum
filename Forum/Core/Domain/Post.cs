@@ -10,11 +10,9 @@ namespace Forum.Core.Domain
         public string Title { get; set; }
         public string Text { get; set; }
         public DateTime DateCreated { get; set; }
-
         public ApplicationUser Author { get; set; }
-        
         public string AuthorId { get; set; }
 
-        public List<Reply> Replies { get; set; }
+        public IEnumerable<Reply> Replies { get; set; }
     }
 }

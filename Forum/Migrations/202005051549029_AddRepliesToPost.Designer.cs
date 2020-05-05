@@ -13,7 +13,7 @@ namespace Forum.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202005041129190_AddRepliesToPost"; }
+            get { return "202005051549029_AddRepliesToPost"; }
         }
         
         string IMigrationMetadata.Source

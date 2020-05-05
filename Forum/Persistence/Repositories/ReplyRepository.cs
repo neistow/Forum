@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using Forum.Core.Domain;
 using Forum.Core.Repositories;
 
@@ -15,7 +16,7 @@ namespace Forum.Persistence.Repositories
 
         public IEnumerable<Reply> GetAllRepliesToPost(int postId)
         {
-            return null;
+            return ApplicationDbContext.Replies.Where(r => r.Post.Id == postId).Include(r => r.Author);
         }
     }
 }

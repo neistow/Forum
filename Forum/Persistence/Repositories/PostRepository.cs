@@ -16,7 +16,7 @@ namespace Forum.Persistence.Repositories
 
         public IEnumerable<Post> GetPostsWithAuthors()
         {
-            return ApplicationDbContext.Posts.Include(p => p.Replies).ToList();
+            return ApplicationDbContext.Posts.Include(p => p.Author).ToList();
         }
 
         public Post GetPostWithAuthor(int id)
