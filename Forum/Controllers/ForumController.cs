@@ -22,10 +22,10 @@ namespace Forum.Controllers
         public ActionResult Posts(int page)
         {
             var posts = _unitOfWork.Posts.GetAll().OrderByDescending(p => p.DateCreated);
-            return View(posts.ToPagedList(page, 5));
+            return View("PostList",posts.ToPagedList(page, 5));
         }
 
-        [Route("Forum/Posts/id{id=1}")]
+        [Route("Forum/Posts/{id=1}")]
         public ActionResult Post(int id)
         {
             var viewModel = new PostViewModel
@@ -39,11 +39,21 @@ namespace Forum.Controllers
         [Route("Forum/Posts/New")]
         public ActionResult New()
         {
-            var viewModel = new PostFormViewModel
+            var post = new Post();
+            return View("PostForm", post);
+        }
+        
+        [Route("Forum/Posts/edit/{id}")]
+        public ActionResult Edit(int id)
+        {
+            var post = _unitOfWork.Posts.GetById(id);
+            
+            if (post == null || post.AuthorId != User.Identity.GetUserId())
             {
-                Post = new Post()
-            };
-            return View("PostForm", viewModel);
+                return HttpNotFound();
+            }
+
+            return View("PostForm", post);
         }
 
         [HttpPost]
@@ -60,14 +70,13 @@ namespace Forum.Controllers
                 var postInDb = _unitOfWork.Posts.SingleOrDefault(p => p.Id == post.Id);
 
                 // TEMPORARILY
-                postInDb.Author = post.Author;
                 postInDb.Title = post.Title;
                 postInDb.Text = post.Text;
             }
 
             _unitOfWork.Complete();
 
-            return RedirectToAction("Posts","Forum");
+            return RedirectToAction("Posts", "Forum");
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Forum.Persistence.Repositories
             Context = context;
         }
 
-        public TEntity Get(int id)
+        public TEntity GetById(int id)
         {
             return Context.Set<TEntity>().Find(id);
         }

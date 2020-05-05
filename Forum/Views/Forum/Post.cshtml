@@ -1,4 +1,5 @@
-﻿@model Forum.Models.PostViewModel
+﻿@using Microsoft.AspNet.Identity
+@model Forum.Models.PostViewModel
 
 @{
     ViewBag.Title = Model.Post.Title;
@@ -8,8 +9,16 @@
 <h4>
     @Model.Post.Author.UserName in <i>@Model.Post.DateCreated.ToString("dd/MM/yyyy dddd")</i>
 </h4>
+@if (User.Identity.GetUserId() == Model.Post.AuthorId)
+{
+    <p class="text-right">
+        @Html.ActionLink("Edit","Edit","Forum",Model.Post.Id,new {@class = "btn btn-primary"})
+        @Html.ActionLink("Delete","Edit","Forum",Model.Post.Id,new {@class = "btn btn-danger"})
+    </p>
+}
+
 <br>
-<p class="lead">@Model.Post.Text</p>
+<p class="lead text-justify" >@Model.Post.Text</p>
 
 <h2>Replies <span class="text-primary">@Model.Replies.Count()</span></h2>
 <hr>
@@ -17,6 +26,6 @@
 {
     <div class="reply">
         <h3>@reply.Author.UserName at <i>@reply.DateCreated.ToString("g")</i></h3>
-        <p class="lead">@reply.Text</p>
+        <p class="lead text-justify">@reply.Text</p>
     </div>
 }

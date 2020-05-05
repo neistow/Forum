@@ -8,7 +8,7 @@ namespace Forum.Persistence.EntityConfigurations
         public PostConfiguration()
         {
             Property(p => p.Title).IsRequired().HasMaxLength(255);
-            Property(p => p.Text).IsRequired().HasColumnType("text").HasMaxLength(5000);
+            Property(p => p.Text).IsRequired().HasColumnType("text").HasMaxLength(10000);
             Property(p => p.DateCreated).IsRequired();
             Property(p => p.AuthorId).IsRequired();
         }

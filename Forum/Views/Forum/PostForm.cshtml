@@ -1,10 +1,10 @@
-﻿@model Forum.Models.PostFormViewModel
+﻿@model Forum.Core.Domain.Post
 
 @{
     ViewBag.Title = "Post";
 }
 
-@if (Model.Post.Id == 0)
+@if (Model.Id == 0)
 {
     <h1>Create Post</h1>
 }
@@ -17,15 +17,15 @@ else
 @using (Html.BeginForm("Save", "Forum"))
 {
     <div class="form-group">
-        @Html.LabelFor(m => Model.Post.Title)
-        @Html.TextBoxFor(m => Model.Post.Title, new {@class = "form-control"})
+        @Html.LabelFor(m => Model.Title)
+        @Html.TextBoxFor(m => Model.Title, new {@class = "form-control"})
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => Model.Post.Text)
-        @Html.TextAreaFor(m => Model.Post.Text, new {@class = "form-control"})
+        @Html.LabelFor(m => Model.Text)
+        @Html.TextAreaFor(m => Model.Text, new {@class = "form-control"})
     </div>
 
-    @Html.HiddenFor(m => m.Post.Id)
+    @Html.HiddenFor(m => m.Id)
 
     <button type="submit" class="btn btn-primary">Save</button>
 }
