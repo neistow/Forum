@@ -6,22 +6,37 @@
     ViewBag.Title = "All Posts";
 }
 <h1>Posts</h1>
+<div class="row">
+    <div class="col-lg-8">
+        <table class="table table-borderless table-hover">
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>
+                        <h2>@post.Title</h2>
+                        <p>@StringUtility.SummarizeText(post.Text)</p>
 
-<table class="table table-borderless table-hover">
-    @foreach (var post in Model)
-    {
-        <tr class="col-lg-8">
-            <td>
-                <h2>@post.Title</h2>
-                <p>@StringUtility.SummarizeText(post.Text)</p>
-
-                <div style="display: flex;justify-content: space-between;align-items: center">
-                    @post.DateCreated.ToString("f")
-                    @* <a href="#" class="btn btn-success">Continue Reading</a> *@
-                    @Html.ActionLink("Continue Reading", "Post", "Forum", new {id = post.Id}, new {@class = "btn btn-success"})
-                </div>
-            </td>
-        </tr>
-    }
-</table>
-@Html.PagedListPager(Model, page => Url.Action("Posts", new {page}))
+                        <div style="display: flex;justify-content: space-between;align-items: center">
+                            @post.DateCreated.ToString("f")
+                            @Html.ActionLink("Continue Reading", "Post", "Forum", new {id = post.Id}, new {@class = "btn btn-success"})
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-lg-4">
+        <h2>News</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
+    </div>
+    <div class="col-lg-4">
+        <h2>Top Post In The Month Here</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
+    </div>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Posts", new {page}), new PagedListRenderOptions
+{
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 10
+})

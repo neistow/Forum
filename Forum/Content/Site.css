@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.reply{
+    padding-left: 2rem;
+    margin-bottom: 3.5rem;
+}

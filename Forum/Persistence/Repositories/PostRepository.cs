@@ -8,20 +8,20 @@ namespace Forum.Persistence.Repositories
 {
     public class PostRepository : Repository<Post>, IPostRepository
     {
+        private ApplicationDbContext ApplicationDbContext => Context as ApplicationDbContext;
+
         public PostRepository(DbContext context) : base(context)
         {
         }
 
-        public IEnumerable<Post> GetPostsWithReplies()
+        public IEnumerable<Post> GetPostsWithAuthors()
         {
             return ApplicationDbContext.Posts.Include(p => p.Replies).ToList();
         }
 
-        public Post GetPostWithReplies(int id)
+        public Post GetPostWithAuthor(int id)
         {
-            return ApplicationDbContext.Posts.Include(p => p.Replies).SingleOrDefault(p => p.Id == id);
+            return ApplicationDbContext.Posts.Include(p => p.Author).SingleOrDefault(p => p.Id == id);
         }
-
-        private ApplicationDbContext ApplicationDbContext => Context as ApplicationDbContext;
     }
 }

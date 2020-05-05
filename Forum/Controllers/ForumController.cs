@@ -23,7 +23,7 @@ namespace Forum.Controllers
         [Route("Forum/Post/id{id=1}")]
         public ActionResult Post(int id)
         {
-            var post = _unitOfWork.Posts.GetPostWithReplies(id);
+            var post = _unitOfWork.Posts.GetPostWithAuthor(id);
             return View(post);
         }
     }

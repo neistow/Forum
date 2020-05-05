@@ -5,6 +5,21 @@
 }
 
 <h1>@Model.Title</h1>
-<h4>@Model.DateCreated</h4>
+<h4>
+    @Model.Author.UserName in <i>@Model.DateCreated.ToString("dd/MM/yyyy dddd")</i>
+</h4>
+<br>
+<p class="lead">@Model.Text</p>
 
-<p>@Model.Text</p>
+<h2>Replies <span class="text-primary">@Model.Replies.Count</span></h2>
+<hr>
+<div class="reply">
+
+    <h3>@Model.Replies.</h3>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid architecto eum nisi placeat similique. Laboriosam!</p>
+</div>
+<div class="reply">
+
+    <h3>Title</h3>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid architecto eum nisi placeat similique. Laboriosam!</p>
+</div>

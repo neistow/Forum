@@ -5,7 +5,7 @@ namespace Forum.Core.Repositories
 {
     public interface IPostRepository : IRepository<Post>
     {
-        IEnumerable<Post> GetPostsWithReplies();
-        Post GetPostWithReplies(int id);
+        IEnumerable<Post> GetPostsWithAuthors();
+        Post GetPostWithAuthor(int id);
     }
 }
