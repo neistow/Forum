@@ -21,8 +21,8 @@ namespace Forum.Controllers
         [Route("Forum/Posts/page{page=1}")]
         public ActionResult Posts(int page)
         {
-            var posts = _unitOfWork.Posts.GetAll().OrderByDescending(p => p.DateCreated);
-            return View("PostList",posts.ToPagedList(page, 5));
+            var posts = _unitOfWork.Posts.GetPostsWithAuthors().OrderByDescending(p => p.DateCreated);
+            return View("PostList", posts.ToPagedList(page, 5));
         }
 
         [Route("Forum/Posts/{id=1}")]
@@ -37,17 +37,17 @@ namespace Forum.Controllers
         }
 
         [Route("Forum/Posts/New")]
-        public ActionResult New()
+        public ActionResult NewPost()
         {
             var post = new Post();
             return View("PostForm", post);
         }
-        
+
         [Route("Forum/Posts/edit/{id}")]
-        public ActionResult Edit(int id)
+        public ActionResult EditPost(int id)
         {
             var post = _unitOfWork.Posts.GetById(id);
-            
+
             if (post == null || post.AuthorId != User.Identity.GetUserId())
             {
                 return HttpNotFound();
@@ -56,8 +56,7 @@ namespace Forum.Controllers
             return View("PostForm", post);
         }
 
-        [HttpPost]
-        public ActionResult Save(Post post)
+        public ActionResult SavePost(Post post)
         {
             if (post.Id == 0)
             {
@@ -76,6 +75,22 @@ namespace Forum.Controllers
 
             _unitOfWork.Complete();
 
+            return RedirectToAction("Posts", "Forum");
+        }
+        
+        [Route("Forum/Posts/Delete/{id}")]
+        public ActionResult DeletePost(int id)
+        {
+            var post = _unitOfWork.Posts.GetPostWithAuthor(id);
+
+            if (User.Identity.GetUserId() != post.Author.Id)
+            {
+                return HttpNotFound();
+            }
+
+            _unitOfWork.Posts.Remove(post);
+            _unitOfWork.Complete();
+            
             return RedirectToAction("Posts", "Forum");
         }
     }

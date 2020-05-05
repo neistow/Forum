@@ -12,8 +12,8 @@
 @if (User.Identity.GetUserId() == Model.Post.AuthorId)
 {
     <p class="text-right">
-        @Html.ActionLink("Edit","Edit","Forum",Model.Post.Id,new {@class = "btn btn-primary"})
-        @Html.ActionLink("Delete","Edit","Forum",Model.Post.Id,new {@class = "btn btn-danger"})
+        @Html.ActionLink("Edit","EditPost","Forum",Model.Post.Id,new {@class = "btn btn-primary"})
+        @Html.ActionLink("Delete","DeletePost","Forum",Model.Post.Id,new {@class = "btn btn-danger"})
     </p>
 }
 

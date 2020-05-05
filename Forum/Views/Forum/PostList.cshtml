@@ -17,7 +17,7 @@
                         <p class="text-justify">@StringUtility.SummarizeText(post.Text)</p>
 
                         <div style="display: flex;justify-content: space-between;align-items: center">
-                            @post.DateCreated.ToString("f")
+                            @post.DateCreated.ToString("f") by @post.Author.UserName
                             @Html.ActionLink("Continue Reading", "Post", "Forum", new {id = post.Id}, new {@class = "btn btn-success"})
                         </div>
                     </td>
