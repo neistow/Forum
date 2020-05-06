@@ -99,6 +99,9 @@ namespace Forum.Controllers
                 return HttpNotFound();
             }
 
+            var replies = _unitOfWork.Replies.GetAllRepliesToPost(id);
+            _unitOfWork.Replies.RemoveRange(replies);
+
             _unitOfWork.Posts.Remove(post);
             _unitOfWork.Complete();
 
@@ -128,8 +131,8 @@ namespace Forum.Controllers
                 return HttpNotFound();
             }
 
-            reply.Post = new Post { Id = postId};
-            
+            reply.Post = new Post {Id = postId};
+
             return View("ReplyForm", reply);
         }
 

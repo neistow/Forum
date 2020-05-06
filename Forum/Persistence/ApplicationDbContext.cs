@@ -22,7 +22,7 @@ namespace Forum.Persistence
             // Fluent Api Here
             modelBuilder.Configurations.Add(new PostConfiguration());
             modelBuilder.Configurations.Add(new ReplyConfiguration());
-            
+
             base.OnModelCreating(modelBuilder);
         }
 
