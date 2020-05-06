@@ -1,0 +1,27 @@
+﻿@model Forum.Core.Domain.Reply
+
+@{
+    ViewBag.Title = "Reply";
+}
+
+@if (Model.Id == 0)
+{
+    <h1>Add Reply</h1>
+}
+else
+{
+    <h1>Edit Reply</h1>
+}
+
+<div class="reply">
+    @using (Html.BeginForm("SaveReply", "Forum", Model.Post.Id))
+    {
+        <div class="form-group">
+            @Html.TextAreaFor(r => r.Text, new {@class = "form-control add-reply-textarea"})
+        </div>
+
+        @Html.HiddenFor(r => r.Id)
+
+        <button type="submit" class="btn btn-lg btn-primary">Save</button>
+    }
+</div>

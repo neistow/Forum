@@ -6,5 +6,6 @@ namespace Forum.Core.Repositories
     public interface IReplyRepository : IRepository<Reply>
     {
         IEnumerable<Reply> GetAllRepliesToPost(int postId);
+        Reply GetReplyWithAuthor(int replyId);
     }
 }

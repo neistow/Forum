@@ -13,20 +13,21 @@ else
     <h1>Edit Post</h1>
 }
 <div class="edit-post-form">
+
+    @using (Html.BeginForm("SavePost", "Forum"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => Model.Title)
+            @Html.TextBoxFor(m => Model.Title, new {@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => Model.Text)
+            @Html.TextAreaFor(m => Model.Text, new {@class = "form-control"})
+        </div>
+
+        @Html.HiddenFor(m => m.Id)
+
+        <button type="submit" class="btn btn-lg btn-primary">Save</button>
+    }
     
-@using (Html.BeginForm("SavePost", "Forum"))
-{
-    <div class="form-group">
-        @Html.LabelFor(m => Model.Title)
-        @Html.TextBoxFor(m => Model.Title, new {@class = "form-control"})
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => Model.Text)
-        @Html.TextAreaFor(m => Model.Text, new {@class = "form-control"})
-    </div>
-
-    @Html.HiddenFor(m => m.Id)
-
-    <button type="submit" class="btn btn-primary">Save</button>
-}
 </div>

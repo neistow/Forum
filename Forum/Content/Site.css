@@ -25,6 +25,13 @@ textarea{
     padding-left: 2rem;
     margin-bottom: 3.5rem;
 }
+
+.add-reply-textarea{
+    height: 200px !important;
+}
+.add-reply-control{
+    width: 100%;
+}
 .edit-post-form{
     max-width: 95%;
     margin: 0 auto;
@@ -35,3 +42,4 @@ textarea{
 .text-justify{
     text-align: justify;
 }
+

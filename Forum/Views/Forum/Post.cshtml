@@ -12,20 +12,32 @@
 @if (User.Identity.GetUserId() == Model.Post.AuthorId)
 {
     <p class="text-right">
-        @Html.ActionLink("Edit","EditPost","Forum",Model.Post.Id,new {@class = "btn btn-primary"})
-        @Html.ActionLink("Delete","DeletePost","Forum",Model.Post.Id,new {@class = "btn btn-danger"})
+        @Html.ActionLink("Edit", "EditPost", "Forum", Model.Post.Id, new {@class = "btn btn-primary"})
+        @Html.ActionLink("Delete", "DeletePost", "Forum", Model.Post.Id, new {@class = "btn btn-danger"})
     </p>
 }
 
 <br>
-<p class="lead text-justify" >@Model.Post.Text</p>
+<p class="lead text-justify">@Model.Post.Text</p>
 
-<h2>Replies <span class="text-primary">@Model.Replies.Count()</span></h2>
+<h2>Replies <span class="text-info">@Model.Replies.Count()</span></h2>
 <hr>
 @foreach (var reply in Model.Replies)
 {
     <div class="reply">
-        <h3>@reply.Author.UserName at <i>@reply.DateCreated.ToString("g")</i></h3>
+        <h4>
+            <i>@reply.Author.UserName at @reply.DateCreated.ToString("g")</i>
+
+            @if (User.Identity.GetUserId() == reply.AuthorId)
+            {
+                <p class="text-right">
+                    @Html.ActionLink("Edit", "EditReply", "Forum", new {postId = Model.Post.Id, replyId = reply.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Delete", "DeleteReply", "Forum", new {postId = Model.Post.Id, replyId = reply.Id}, new {@class = "btn btn-danger"})
+                </p>
+            }
+        </h4>
         <p class="lead text-justify">@reply.Text</p>
     </div>
 }
+
+@Html.ActionLink("Add Reply", "NewReply", "Forum", new {postId = Model.Post.Id}, new {@class = "btn btn-lg btn-primary"})

@@ -382,6 +382,7 @@
     <Content Include="Views\Forum\Post.cshtml" />
     <Content Include="Views\Forum\PostForm.cshtml" />
     <Content Include="Views\Forum\PostList.cshtml" />
+    <Content Include="Views\Forum\ReplyForm.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

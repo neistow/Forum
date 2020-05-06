@@ -18,5 +18,10 @@ namespace Forum.Persistence.Repositories
         {
             return ApplicationDbContext.Replies.Where(r => r.Post.Id == postId).Include(r => r.Author);
         }
+
+        public Reply GetReplyWithAuthor(int replyId)
+        {
+            return ApplicationDbContext.Replies.Include(r => r.Author).SingleOrDefault(r => r.Id == replyId);
+        }
     }
 }

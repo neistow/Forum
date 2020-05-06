@@ -28,10 +28,12 @@ namespace Forum.Controllers
         [Route("Forum/Posts/{id=1}")]
         public ActionResult Post(int id)
         {
+            var post = _unitOfWork.Posts.GetPostWithAuthor(id);
+            var replies = _unitOfWork.Replies.GetAllRepliesToPost(id);
             var viewModel = new PostViewModel
             {
-                Post = _unitOfWork.Posts.GetPostWithAuthor(id),
-                Replies = _unitOfWork.Replies.GetAllRepliesToPost(id)
+                Post = post,
+                Replies = replies,
             };
             return View(viewModel);
         }
@@ -39,6 +41,11 @@ namespace Forum.Controllers
         [Route("Forum/Posts/New")]
         public ActionResult NewPost()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return HttpNotFound();
+            }
+
             var post = new Post();
             return View("PostForm", post);
         }
@@ -58,6 +65,11 @@ namespace Forum.Controllers
 
         public ActionResult SavePost(Post post)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return HttpNotFound();
+            }
+
             if (post.Id == 0)
             {
                 post.DateCreated = DateTime.Now;
@@ -68,7 +80,6 @@ namespace Forum.Controllers
             {
                 var postInDb = _unitOfWork.Posts.SingleOrDefault(p => p.Id == post.Id);
 
-                // TEMPORARILY
                 postInDb.Title = post.Title;
                 postInDb.Text = post.Text;
             }
@@ -77,7 +88,7 @@ namespace Forum.Controllers
 
             return RedirectToAction("Posts", "Forum");
         }
-        
+
         [Route("Forum/Posts/Delete/{id}")]
         public ActionResult DeletePost(int id)
         {
@@ -90,8 +101,79 @@ namespace Forum.Controllers
 
             _unitOfWork.Posts.Remove(post);
             _unitOfWork.Complete();
-            
+
             return RedirectToAction("Posts", "Forum");
+        }
+
+        [Route("Forum/Posts/{postId}/NewReply")]
+        public ActionResult NewReply(int postId)
+        {
+            var post = _unitOfWork.Posts.GetPostWithAuthor(postId);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+
+            var reply = new Reply {Post = post}; // Fix this
+            return View("ReplyForm", reply);
+        }
+
+        [Route("Forum/Posts/{postId}/Reply/{replyId}/Edit")]
+        public ActionResult EditReply(int postId, int replyId)
+        {
+            var reply = _unitOfWork.Replies.GetById(replyId);
+
+            if (reply == null || reply.AuthorId != User.Identity.GetUserId())
+            {
+                return HttpNotFound();
+            }
+
+            reply.Post = new Post { Id = postId};
+            
+            return View("ReplyForm", reply);
+        }
+
+        [Route("Forum/Posts/{postId}/Reply/Save")]
+        public ActionResult SaveReply(Reply reply, int postId)
+        {
+            if (reply.Id == 0)
+            {
+                reply.DateCreated = DateTime.Now;
+                reply.AuthorId = User.Identity.GetUserId();
+                reply.Post = _unitOfWork.Posts.GetById(postId);
+                _unitOfWork.Replies.Add(reply);
+            }
+            else
+            {
+                var replyInDb = _unitOfWork.Replies.SingleOrDefault(r => r.Id == reply.Id);
+
+                if (replyInDb.AuthorId != User.Identity.GetUserId())
+                {
+                    return HttpNotFound();
+                }
+
+                replyInDb.Text = reply.Text;
+            }
+
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Post", "Forum", new {id = postId});
+        }
+
+        [Route("Forum/Posts/{postId}/DeleteReply/{replyId}")]
+        public ActionResult DeleteReply(int postId, int replyId)
+        {
+            var reply = _unitOfWork.Replies.GetReplyWithAuthor(replyId);
+
+            if (User.Identity.GetUserId() != reply.Author.Id)
+            {
+                return HttpNotFound();
+            }
+
+            _unitOfWork.Replies.Remove(reply);
+            _unitOfWork.Complete();
+
+            return RedirectToAction("Post", "Forum", new {id = postId});
         }
     }
 }
