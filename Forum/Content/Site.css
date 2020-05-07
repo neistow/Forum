@@ -42,4 +42,12 @@ textarea{
 .text-justify{
     text-align: justify;
 }
-
+.validation-summary-errors{
+    color:red;
+}
+.field-validation-error{
+    color:red;
+}
+.input-validation-error{
+    border: 2px solid red;
+}

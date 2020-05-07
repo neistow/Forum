@@ -1,10 +1,10 @@
-﻿@model Forum.Core.Domain.Reply
+﻿@model Forum.Models.ReplyViewModel
 
 @{
     ViewBag.Title = "Reply";
 }
 
-@if (Model.Id == 0)
+@if (Model.Reply.Id == 0)
 {
     <h1>Add Reply</h1>
 }
@@ -14,14 +14,16 @@ else
 }
 
 <div class="reply">
-    @using (Html.BeginForm("SaveReply", "Forum", Model.Post.Id))
+    @using (Html.BeginForm("SaveReply", "Forum", Model.PostId))
     {
         <div class="form-group">
-            @Html.TextAreaFor(r => r.Text, new {@class = "form-control add-reply-textarea"})
+            @Html.TextAreaFor(r => r.Reply.Text, new {@class = "form-control add-reply-textarea"})
+            @Html.ValidationMessageFor(r => r.Reply.Text)
         </div>
 
-        @Html.HiddenFor(r => r.Id)
-
+        @Html.HiddenFor(r => r.Reply.Id)
+        @Html.AntiForgeryToken()
+        
         <button type="submit" class="btn btn-lg btn-primary">Save</button>
     }
 </div>

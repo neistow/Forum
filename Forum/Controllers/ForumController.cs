@@ -63,8 +63,14 @@ namespace Forum.Controllers
             return View("PostForm", post);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult SavePost(Post post)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("PostForm", post);
+            }
+
             if (!User.Identity.IsAuthenticated)
             {
                 return HttpNotFound();
@@ -111,14 +117,22 @@ namespace Forum.Controllers
         [Route("Forum/Posts/{postId}/NewReply")]
         public ActionResult NewReply(int postId)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return HttpNotFound();
+            }
             var post = _unitOfWork.Posts.GetPostWithAuthor(postId);
             if (post == null)
             {
                 return HttpNotFound();
             }
 
-            var reply = new Reply {Post = post}; // Fix this
-            return View("ReplyForm", reply);
+            var viewModel = new ReplyViewModel()
+            {
+                PostId = post.Id,
+                Reply = new Reply()
+            };
+            return View("ReplyForm", viewModel);
         }
 
         [Route("Forum/Posts/{postId}/Reply/{replyId}/Edit")]
@@ -131,14 +145,29 @@ namespace Forum.Controllers
                 return HttpNotFound();
             }
 
-            reply.Post = new Post {Id = postId};
-
-            return View("ReplyForm", reply);
+            var viewModel = new ReplyViewModel()
+            {
+                Reply = reply,
+                PostId = postId
+            };
+            
+            return View("ReplyForm");
         }
 
+        [ValidateAntiForgeryToken]
         [Route("Forum/Posts/{postId}/Reply/Save")]
         public ActionResult SaveReply(Reply reply, int postId)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new ReplyViewModel
+                {
+                    PostId = postId,
+                    Reply = reply
+                };
+                return View("ReplyForm", viewModel);
+            }
+
             if (reply.Id == 0)
             {
                 reply.DateCreated = DateTime.Now;

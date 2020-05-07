@@ -5,9 +5,7 @@ namespace Forum.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Required] [Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -25,12 +23,9 @@ namespace Forum.Models
 
     public class VerifyCodeViewModel
     {
-        [Required]
-        public string Provider { get; set; }
+        [Required] public string Provider { get; set; }
 
-        [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
+        [Required] [Display(Name = "Code")] public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
@@ -41,9 +36,7 @@ namespace Forum.Models
 
     public class ForgotViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Required] [Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class LoginViewModel
@@ -58,8 +51,7 @@ namespace Forum.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        [Display(Name = "Remember me?")] public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
@@ -70,7 +62,11 @@ namespace Forum.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(25, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        public string NickName { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
