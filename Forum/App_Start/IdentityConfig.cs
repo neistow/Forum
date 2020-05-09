@@ -45,7 +45,7 @@ namespace Forum
 
         public override async Task SendEmailAsync(string userId, string subject, string body)
         {
-            var from = new MailAddress("yourmail@mail.com", "ForumAdmin");
+            var from = new MailAddress("youremail@mail.com", "ForumAdmin");
             var email = await GetEmailAsync(userId);
             var to = new MailAddress(email);
             var message = new MailMessage(from, to)
@@ -54,11 +54,12 @@ namespace Forum
                 Body = body,
                 IsBodyHtml = true
             };
-            using (var smtp = new SmtpClient("smtp.host.com", 587))
+            
+            using (var smtp = new SmtpClient("smtp.mailhost.com", 587))
             {
                 smtp.Credentials =
-                    new NetworkCredential("yourmail@mail.com",
-                        "yourpass");
+                    new NetworkCredential("youremail@mail.com",
+                        "yourpassword");
                 smtp.EnableSsl = true;
                 await smtp.SendMailAsync(message);
             }

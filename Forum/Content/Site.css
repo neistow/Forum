@@ -17,37 +17,56 @@ body {
     white-space: normal;
 }
 
-textarea{
+textarea {
     resize: vertical;
     height: 500px !important;
 }
-.reply{
+
+.reply {
     padding-left: 2rem;
     margin-bottom: 3.5rem;
 }
 
-.add-reply-textarea{
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-reply-textarea {
     height: 200px !important;
 }
-.add-reply-control{
+
+.add-reply-control {
     width: 100%;
 }
-.edit-post-form{
+
+.edit-post-form {
     max-width: 95%;
     margin: 0 auto;
 }
-.edit-post-form label{
+
+.edit-post-form label {
     font-size: 2vh;
 }
-.text-justify{
+
+.text-justify {
     text-align: justify;
 }
-.validation-summary-errors{
-    color:red;
+
+.validation-summary-errors {
+    color: red;
 }
-.field-validation-error{
-    color:red;
+
+.field-validation-error {
+    color: red;
 }
-.input-validation-error{
+
+.input-validation-error {
     border: 2px solid red;
 }

@@ -15,23 +15,31 @@
                     <td>
                         <h2>@post.Title</h2>
                         <p class="text-justify">@StringUtility.SummarizeText(post.Text)</p>
-
-                        <div style="display: flex;justify-content: space-between;align-items: center">
+                        <div class="post-footer">
                             @post.DateCreated.ToString("f") by @post.Author.UserName
-                            @Html.ActionLink("Continue Reading", "Post", "Forum", new {id = post.Id}, new {@class = "btn btn-success"})
+                            @Html.ActionLink("Continue Reading", "Post", "Forum", new {id = post.Id}, new {@class = "btn btn-primary"})
                         </div>
                     </td>
                 </tr>
             }
         </table>
     </div>
-    <div class="col-lg-4">
-        <h2>News</h2>
-        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
+    <div class="col-lg-4 sidebar">
+        <div>
+            <h2>Lorem ipsum dolor sit amet</h2>
+            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
+        </div>
+
+        <div>
+            <h2>Lorem ipsum dolor sit amet</h2>
+            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
+        </div>
+
+        <div>
+            <h2>Lorem ipsum dolor sit amet</h2>
+            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
+        </div>
     </div>
-    <div class="col-lg-4">
-        <h2>Top Post In The Month Here</h2>
-        <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, culpa distinctio doloribus, ea eius esse eum excepturi facilis harum illo laudantium libero molestiae odit, perferendis quas repellat tenetur voluptates voluptatum.</p>
-    </div>
+
 </div>
 @Html.PagedListPager(Model, page => Url.Action("Posts", new {page}), new PagedListRenderOptions {LinkToNextPageFormat = "Next", LinkToPreviousPageFormat = "Previous", MaximumPageNumbersToDisplay = 10})
