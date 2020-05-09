@@ -9,6 +9,7 @@ using PagedList;
 
 namespace Forum.Controllers
 {
+    [Authorize]
     public class ForumController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -18,14 +19,16 @@ namespace Forum.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [Route("Forum/Posts/page{page=1}")]
+        [AllowAnonymous]
+        [Route("Forum/Posts/{page=1}")]
         public ActionResult Posts(int page)
         {
             var posts = _unitOfWork.Posts.GetPostsWithAuthors().OrderByDescending(p => p.DateCreated);
             return View("PostList", posts.ToPagedList(page, 5));
         }
 
-        [Route("Forum/Posts/{id=1}")]
+        [AllowAnonymous]
+        [Route("Forum/Post/{id=1}")]
         public ActionResult Post(int id)
         {
             var post = _unitOfWork.Posts.GetPostWithAuthor(id);
@@ -38,19 +41,14 @@ namespace Forum.Controllers
             return View(viewModel);
         }
 
-        [Route("Forum/Posts/New")]
+        [Route("Forum/Post/New")]
         public ActionResult NewPost()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return HttpNotFound();
-            }
-
             var post = new Post();
             return View("PostForm", post);
         }
 
-        [Route("Forum/Posts/edit/{id}")]
+        [Route("Forum/Post/edit/{id}")]
         public ActionResult EditPost(int id)
         {
             var post = _unitOfWork.Posts.GetById(id);
@@ -69,11 +67,6 @@ namespace Forum.Controllers
             if (!ModelState.IsValid)
             {
                 return View("PostForm", post);
-            }
-
-            if (!User.Identity.IsAuthenticated)
-            {
-                return HttpNotFound();
             }
 
             if (post.Id == 0)
@@ -95,7 +88,7 @@ namespace Forum.Controllers
             return RedirectToAction("Posts", "Forum");
         }
 
-        [Route("Forum/Posts/Delete/{id}")]
+        [Route("Forum/Post/Delete/{id}")]
         public ActionResult DeletePost(int id)
         {
             var post = _unitOfWork.Posts.GetPostWithAuthor(id);
@@ -114,13 +107,9 @@ namespace Forum.Controllers
             return RedirectToAction("Posts", "Forum");
         }
 
-        [Route("Forum/Posts/{postId}/NewReply")]
+        [Route("Forum/Post/{postId}/NewReply")]
         public ActionResult NewReply(int postId)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return HttpNotFound();
-            }
             var post = _unitOfWork.Posts.GetPostWithAuthor(postId);
             if (post == null)
             {
@@ -135,7 +124,7 @@ namespace Forum.Controllers
             return View("ReplyForm", viewModel);
         }
 
-        [Route("Forum/Posts/{postId}/Reply/{replyId}/Edit")]
+        [Route("Forum/Post/{postId}/Reply/{replyId}/Edit")]
         public ActionResult EditReply(int postId, int replyId)
         {
             var reply = _unitOfWork.Replies.GetById(replyId);
@@ -150,12 +139,12 @@ namespace Forum.Controllers
                 Reply = reply,
                 PostId = postId
             };
-            
-            return View("ReplyForm");
+
+            return View("ReplyForm", viewModel);
         }
 
         [ValidateAntiForgeryToken]
-        [Route("Forum/Posts/{postId}/Reply/Save")]
+        [Route("Forum/Post/{postId}/Reply/Save")]
         public ActionResult SaveReply(Reply reply, int postId)
         {
             if (!ModelState.IsValid)
@@ -192,7 +181,7 @@ namespace Forum.Controllers
             return RedirectToAction("Post", "Forum", new {id = postId});
         }
 
-        [Route("Forum/Posts/{postId}/DeleteReply/{replyId}")]
+        [Route("Forum/Post/{postId}/DeleteReply/{replyId}")]
         public ActionResult DeleteReply(int postId, int replyId)
         {
             var reply = _unitOfWork.Replies.GetReplyWithAuthor(replyId);

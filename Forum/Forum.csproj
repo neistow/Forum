@@ -236,6 +236,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\EmailConfirmationViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostViewModel.cs" />
@@ -380,6 +381,7 @@
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Views\Account\EmailConfirmation.cshtml" />
     <Content Include="Views\Forum\Post.cshtml" />
     <Content Include="Views\Forum\PostForm.cshtml" />
     <Content Include="Views\Forum\PostList.cshtml" />
