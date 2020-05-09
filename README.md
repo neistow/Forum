@@ -57,6 +57,9 @@ update-database
 
 If you are using Rider there is no need to run the migrations. It will be automatically done during first launch.
 
+![dbo](https://user-images.githubusercontent.com/55974615/81477958-1e6a1200-9223-11ea-907a-6778069ef3aa.png)
+Database Scheme should look like this.
+
 At this point application is ready to use, if it's nessecary you can also configure email vefirication.
 
 ### Configuring Email Verification
