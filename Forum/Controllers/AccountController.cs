@@ -62,15 +62,15 @@ namespace Forum.Controllers
             }
 
             // UNCOMMENT THIS
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    ViewBag.errorMessage = "You must have a confirmed email to log on.";
-                    return View("Error");
-                }
-            }
+            // var user = await UserManager.FindByNameAsync(model.Email);
+            // if (user != null)
+            // {
+            //     if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+            //     {
+            //         ViewBag.errorMessage = "You must have a confirmed email to log on.";
+            //         return View("Error");
+            //     }
+            // }
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe,
                 shouldLockout: false);

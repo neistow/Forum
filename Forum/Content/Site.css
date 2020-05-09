@@ -26,7 +26,15 @@ textarea {
     padding-left: 2rem;
     margin-bottom: 3.5rem;
 }
-
+.posts-list-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+.create-post-button{
+    margin-right: 3rem;
+}
 .post-footer {
     display: flex;
     justify-content: space-between;

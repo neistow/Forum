@@ -5,7 +5,15 @@
 @{
     ViewBag.Title = "All Posts";
 }
-<h1>Posts</h1>
+<div class="row">
+    <div class="col-lg-8 posts-list-header">
+        <h1>Posts</h1>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Create Post", "NewPost", "Forum", new {@class = "btn btn-success create-post-button"})
+        }
+    </div>
+</div>
 <div class="row">
     <div class="col-lg-8">
         <table class="table table-borderless table-hover">
