@@ -156,3 +156,6 @@ After a few minutes, we can use email we verified for registration. Now we will 
 ## Authors
 
 * **Gleb Chernigin** - [Neistow](https://github.com/Neistow)
+
+## Project Links
+* [Trello](https://trello.com/b/aIvITSml)
