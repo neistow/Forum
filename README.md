@@ -140,6 +140,7 @@ Click on your free sandbox mailbox and for simplicity we will use SMTP. After yo
 ![image](https://user-images.githubusercontent.com/55974615/81473999-5a917880-920b-11ea-93f0-b41bb5833246.png)
 
 Because we are using provided domain for testing purposes, we should add email which we will use for registration to *Authorized Recipients*.
+
 ![image](https://user-images.githubusercontent.com/55974615/81474174-47cb7380-920c-11ea-9e01-5633d85fd441.png)
 
 After a few minutes, we can use email we verified for registration. Now we will receive email after registaion
